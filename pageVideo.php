@@ -11,10 +11,7 @@ try{
   //En cas d'erreur on affiche un message et on arrete tout
   die('Erreur : ' . $e->getMessage());
 }
-<<<<<<< HEAD
-=======
 //On affiche le film 
->>>>>>> d49fe1c91e5846528fce751b74822d82c810e026
 $req = $bdd->prepare('SELECT id FROM video WHERE id = :id');
 $req->execute(array(
     'id' => $_GET['id']
@@ -38,26 +35,13 @@ if(isset($_POST['delete'])){
     'id'=>$_POST['id_comm']
   ));
 }
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Getflix , the new Netflix">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style3.css">
-    <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="css/media/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="css/media/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="css/media/favicon/favicon-16x16.png">
-    <link rel="manifest" href="css/media/favicon/site.webmanifest">
-    <title>SeriesAddict</title>
-</head>
 
-<body>
+
+
+
 <!--On inclut la NavBar-->
 <?php include('NavBar.php'); ?>
 
@@ -155,6 +139,9 @@ function getSimilar(){
 <div class="col col-lg-2 ">
 <h3 onclick="vid()" id='video2' class="disabled">Similar Movies</h3>
 </div>
+<div class="col col-lg-2">
+  <h3 onclick="order3()" id='order2'class="disabled"><i class="fas fa-shopping-cart"></i></h3>
+</div>
 </div>
 
 <!--Information -->
@@ -246,7 +233,32 @@ $id5=$_GET['id'];
 
 
 </div>
+<section id="commande" class="col col-md-3 offset-md-4" style='display:none'>
 
+<form action="" method="post" style="text-align:center">
+
+ <select class="custom-select"  style="width:30%" name="type" id="">
+   <option value="25">DVD - 25€</option>
+   <option value="50">Bluray - 50€</option>
+ </select>
+ <button type="submit" class="btn btn-outline-danger valider">Add to cart</button>
+</form>
+</section>
+<?php
+if(isset($_POST['type'])){
+  $data =[
+    ':id' => $_SESSION['id_user'],
+    'id_vid' => $_GET['id'],
+    ':qty' => '1',
+    ':prix' => $_POST['type'],
+  ];
+  $bdd = new PDO('mysql:host=localhost;dbname=Getflix', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $sql = "INSERT INTO commande (id,id_vid,qty,prix) VALUES (:id, :id_vid, :qty, :prix) ";
+  $statement = $bdd->prepare($sql);
+  $statement->execute($data);
+
+}
+?>
 <!--Vidéo simmilaire-->
 
 <div id="video" style="display:none">
@@ -275,16 +287,13 @@ $id5=$_GET['id'];
 <?php include('footer.php'); ?>
 
 
-</body>
+
 <script src='pageVideo.js'>
 </script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/75bed6266a.js"></script>
 
-</html>
+
+
 
 <?php
 }

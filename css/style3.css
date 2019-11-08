@@ -73,3 +73,6 @@ body{
 label{
     font-size: 20px;
 }
+#order2{
+    cursor: pointer;
+}

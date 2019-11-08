@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 21 oct. 2019 à 11:56
--- Version du serveur :  10.4.6-MariaDB
--- Version de PHP :  7.3.9
+-- Généré le :  mar. 05 nov. 2019 à 13:49
+-- Version du serveur :  10.3.15-MariaDB
+-- Version de PHP :  7.1.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `Getflix`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commande`
+--
+
+CREATE TABLE `commande` (
+  `id` int(2) NOT NULL,
+  `id_vid` int(11) NOT NULL,
+  `qty` int(2) NOT NULL,
+  `prix` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `commande`
+--
+
+INSERT INTO `commande` (`id`, `id_vid`, `qty`, `prix`) VALUES
+(2, 278, 2, 100),
+(2, 278, 3, 75);
 
 -- --------------------------------------------------------
 
@@ -63,7 +84,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `status`, `img`) VALUES
-(1, 'Admin', 'admin', 'admin@admin.com', 2, 'image.png');
+(1, 'Admin', 'admin', 'admin@admin.com', 2, 'image.png'),
+(2, 'mhanon', '$2y$10$BATvN18k0A6d4DVntvwscOytpQZkp.ioul/h3QaYZjl8aY6dJeSou', 'mike.hanon@gmail.com', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -84,7 +106,8 @@ CREATE TABLE `video` (
 --
 
 INSERT INTO `video` (`id`, `title`, `codeYT`, `theme`, `release_date`) VALUES
-(1, 'test', 'test', 'test', '2019-10-09');
+(1, 'test', 'test', 'test', '2019-10-09'),
+(278, NULL, NULL, NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -124,13 +147,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `video`
 --
 ALTER TABLE `video`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
 
 --
 -- Contraintes pour les tables déchargées
